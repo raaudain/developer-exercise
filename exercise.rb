@@ -9,18 +9,18 @@ class Exercise
 
     for word in str.split(" ") do
       pun = ""
-      index = word.index(/[?.!,;:]/)
+      regex = /[?.!,;:]/
 
-      if word.match?(/[?.!,;:]/)
-        pun = word.slice!(index..)
+      if word.match?(regex)
+        pun = word.slice!(word.index(regex)..)
       end
       
       if word.length > 4 && word.capitalize! == nil
-        string.append(m.capitalize + pun)
+        string.push(m.capitalize + pun)
       elsif word.length > 4
-        string.append(m + pun)
+        string.push(m + pun)
       else
-        string.append(word)
+        string.push(word)
       end
     end
 
@@ -38,18 +38,10 @@ class Exercise
     while i <= nth do
       a = results[i - 1]
       b = results[i - 2]
-      results.append(a + b)
+      results.push(a + b)
       i += 1
     end
 
-    sum = 0
-
-    for n in results do
-      if n % 2 == 0 
-        sum += n
-      end
-    end
-
-    return sum
+    return results.reject{|n| n % 2 != 0}.reduce(:+)
   end
 end
